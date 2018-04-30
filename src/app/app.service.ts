@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { Http, Response } from '@angular/http';
+import { HttpClient } from  '@angular/common/http';
+import { Response } from  '@angular/http';
+
 import { Archive } from './archive';
 import { Observable } from 'rxjs/Observable';
 
@@ -14,17 +16,13 @@ const API_URL = "http://localhost:8080/api";
 export class ApiService {
 
   constructor(
-    private http: Http
+    private http: HttpClient
   ) {
   }
 
   public getAllTodos(): Observable<Archive[]> {
     return this.http
       .get(API_URL + '/all')
-      .map(response => {
-        const todos = response.json();
-        return todos.map((todo) => new Archive(todo));
-      })
       .catch(this.handleError);
   }
 
